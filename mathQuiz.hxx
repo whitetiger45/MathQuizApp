@@ -9,36 +9,23 @@
 func(Title, "\n* Math Quiz *")
 #undef func
 
+#define func(n, a) void show##n(){std::cout << a << "\n";}
+func(Menu, "\nSelect A Quiz Type:\n=========\n1: Addition\n2: Subtraction\n3: Quit")
+func(DifficultyMenu, "\nSet a difficulty level by entering 1, 2, 3 or 4 (Enter 'b' to return to mode select)")
+#undef func
+
+auto lineWrapper = [](std::string lineToWrap, char c){for(signed int i = 0; i < lineToWrap.size(); i++)std::cout << c; std::cout << "\n";};
+
 class Quizzer
 {
     public:
 
-            void setXAndY(unsigned int x, unsigned int y)
+            void setXAndY(signed int x, signed int y)
             {
                 m_x = x;
                 m_y = y;
                 m_xStr = std::to_string(x);
                 m_yStr = std::to_string(y);
-
-                if(m_xStr.length() < 4)
-                {
-                    m_numberOfZerosToAddX = 4 - m_xStr.length();
-                    for(int i = 0; i != m_numberOfZerosToAddX; i++)
-                        m_zeroifyX += "0";
-                    m_zeroifyX += m_xStr;
-                    m_paddedXWithZeros = true;
-                    // std::cout << "\nPadded x!\n";
-                }
-
-                if(m_yStr.length() < 4)
-                {
-                    m_numberOfZerosToAddY = 4 - m_yStr.length();
-                    for(int i = 0; i != m_numberOfZerosToAddY; i++)
-                        m_zeroifyY += "0";
-                    m_zeroifyY += m_yStr;
-                    m_paddedYWithZeros = true;
-                    // std::cout << "\nPadded y!\n";
-                }
             }
 
             unsigned int getX() const
@@ -61,39 +48,21 @@ class Quizzer
                 return m_yStr;
             }
 
-            std::string getPaddedXStr() const
+            std::string getProblem(char op) const
             {
-                return m_zeroifyX;
-            }
-
-            std::string getPaddedYStr() const
-            {
-                return m_zeroifyY;
-            }
-
-            void getProblem() const
-            {
-                if(m_paddedXWithZeros)
-                    std::cout << "\nSolve: \n\t " << getYStr() << "\n      +  " << getPaddedXStr() << "\n\t______\n  User:  ";
-                else if(m_paddedYWithZeros)
-                    std::cout << "\nSolve: \n\t " << getXStr() << "\n      +  " << getPaddedYStr() << "\n\t______\n  User:  ";
-                else 
-                    std::cout << "\nSolve: \n\t " << getXStr() << "\n      +  " << getYStr() << "\n\t______\n  User:  ";
+                    std::string problem = "*(Enter 'q' to quit)*\nSolve: \n\n" + getXStr() + " " + op + " " + getYStr() + " = ";
+                    return problem;      
             }
 
 
     private:
 
-        unsigned int m_x;
-        unsigned int m_y;
+        signed int m_x;
+        signed int m_y;
         std::string m_xStr;
         std::string m_yStr;
         signed int m_numberOfZerosToAddX = 0;
         signed int m_numberOfZerosToAddY = 0;
-        bool m_paddedXWithZeros = false;
-        bool m_paddedYWithZeros = false;
-        std::string m_zeroifyX;
-        std::string m_zeroifyY;
 
 };
 #endif // MATHQUIZ_HXX
