@@ -5,11 +5,10 @@ using namespace std;
 auto addition = [](signed int x, signed int y) -> signed int {return x + y;};
 auto subtraction = [](signed int x, signed int y) -> signed int {return x - y;};
 
-
 int main()
 {
-
     showTitle();
+    Quizzer quizApp;
 //------------------------------------------------------------------
     modeMenu:
 
@@ -17,8 +16,8 @@ int main()
     signed int userModeChoice_si;
     showMenu();
     cout << "\nUser: "; cin >> userModeChoice_str;
-    if( userModeChoice_str.length() > 1 || !isdigit(userModeChoice_str[0])
-        || stoi(userModeChoice_str) > 3 || stoi(userModeChoice_str) < 1 )
+    if( (userModeChoice_str.length() > 1) || (!isdigit(userModeChoice_str[0]))
+        || (stoi(userModeChoice_str) > 3 || stoi(userModeChoice_str) < 1 ))
     {
         cout << "\n***You did not enter a valid option!***\n";
         goto modeMenu;
@@ -32,27 +31,28 @@ int main()
     string userDifficultyChoice_str;
     signed int userDifficultyChoice_si;
 
-    showDifficultyMenu();
-    cout << "User: ";cin >> userDifficultyChoice_str;
+    if(userModeChoice_si != 3)
+    {   
+        showDifficultyMenu();
+        cout << "User: ";cin >> userDifficultyChoice_str;
 
-    if( userDifficultyChoice_str.length() > 1 || !isdigit(userDifficultyChoice_str[0])
-        || stoi(userDifficultyChoice_str) > 4 || stoi(userDifficultyChoice_str) < 1 )
-    {
-        if(userDifficultyChoice_str == "b" || userDifficultyChoice_str == "B" )
+        if( userDifficultyChoice_str.length() > 1 || !isdigit(userDifficultyChoice_str[0])
+            || stoi(userDifficultyChoice_str) > 4 || stoi(userDifficultyChoice_str) < 1 )
         {
-            goto modeMenu;
+            if(userDifficultyChoice_str == "b" || userDifficultyChoice_str == "B" )
+            {
+                goto modeMenu;
+            }
+            else
+            {
+                cout << "\n***You did not enter a valid option!***\n";
+                goto difficultyMenu;
+            }
         }
         else
-        {
-            cout << "\n***You did not enter a valid option!***\n";
-            goto difficultyMenu;
-        }
+            userDifficultyChoice_si = stoi(userDifficultyChoice_str);
     }
-    else
-        userDifficultyChoice_si = stoi(userDifficultyChoice_str);
 //------------------------------------------------------------------
-    Quizzer quizApp;
-
     getQuestion:
     srand(time(NULL));
 
@@ -131,6 +131,8 @@ int main()
                 {
                     if(c == 'q' || c == 'Q')
                         goto quit;
+                    else if(c == '-')
+                        continue;
                     else
                     {
                         cout << "\nInvalid entry!\n";
@@ -153,6 +155,7 @@ int main()
             }
         }
 //------------------------------------------------------------------
+        //this case is not needed
         case 3:
             EXIT_SUCCESS;
     }
