@@ -35,8 +35,10 @@ int main()
         if(userModeChoice_si == 3)
             break;
 
+        cout << endl; lineWrapperI(85, '-');
         showDifficultyMenu();
         cout << "\nUser: ";cin >> userDifficultyChoice_str;
+        lineWrapperI(85, '-');
 
         if( userDifficultyChoice_str.length() > 1 || !isdigit(userDifficultyChoice_str[0])
             || stoi(userDifficultyChoice_str) > 4 || stoi(userDifficultyChoice_str) < 1 )

@@ -11,8 +11,8 @@ func(Title, "\n* Math Quiz *")
 //----------------------------------------------------------------------------------------------------------------
 #define func(n, a) void show##n(){std::cout << a << "\n";}
 func(Menu, "\nSelect A Quiz Type:\n===================\n1: Addition\n2: Subtraction\n3: Quit")
-func(DifficultyMenu, "\nSet a difficulty level by entering 1, 2, 3 or 4 (Enter 'b' to return to mode select)")
-func(NumberOfQuestionsMenu, "\n(Enter 'm' to return to mode select and 'b' for difficulty select)\nHow many questions do you like to attempt (Max is 20)?")
+func(DifficultyMenu, "*Difficulty Select*\n\nSet a difficulty level by entering 1, 2, 3 or 4 (Enter 'b' to return to mode select)")
+func(NumberOfQuestionsMenu, "\n(Enter 'm' to return to mode select and 'b' for difficulty select)\nHow many questions do you like to attempt (Max is 20):")
 #undef func
 //----------------------------------------------------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ auto subtraction = [](signed int x, signed int y) -> signed int {return x - y;};
 
 //----------------------------------------------------------------------------------------------------------------
 auto lineWrapper = [](std::string lineToWrap, char c){for(signed int i = 0; i < lineToWrap.size(); i++)std::cout << c; std::cout << "\n";};
-
+auto lineWrapperI = [](unsigned int numOfChars, char c){for(signed int i = 0; i < numOfChars ; i++)std::cout << c; std::cout << "\n";};
 class Quizzer
 {
     public:
