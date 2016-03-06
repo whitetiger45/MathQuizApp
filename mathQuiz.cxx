@@ -18,7 +18,7 @@ int main()
     if( userModeChoice_str.length() > 1 || !isdigit(userModeChoice_str[0])
         || stoi(userModeChoice_str) > 3 || stoi(userModeChoice_str) < 1 )
     {
-        cout << "\n***You did not enter a valid option!***\n";
+        cout << "\n*** You did not enter a valid option ***\n";
         goto modeMenu;
     }
     else
@@ -36,6 +36,8 @@ int main()
             break;
 
         cout << endl; lineWrapperI(85, '-');
+        cout << "Difficulty Select\n";
+        lineWrapper(string("Difficulty Select\n"), '-');
         showDifficultyMenu();
         cout << "\nUser: ";cin >> userDifficultyChoice_str;
         lineWrapperI(85, '-');
@@ -49,7 +51,7 @@ int main()
             }
             else
             {
-                cout << "\n***You did not enter a valid option!***\n";
+                cout << "\n*** You did not enter a valid option ***\n";
                 goto difficultyMenu;
             }
         }
@@ -59,6 +61,8 @@ int main()
         numberOfQuestionsMenu:
         string userNumberOfQuestionsResponse_str;
 
+        cout << "Set Quiz Length\n";
+        lineWrapper(string("Set Quiz Length\n"), '-');
         showNumberOfQuestionsMenu(); 
         cout << "\nUser: "; cin >> userNumberOfQuestionsResponse_str;
 
@@ -68,7 +72,7 @@ int main()
             goto difficultyMenu;
         else if(userNumberOfQuestionsResponse_str.length() > 2)
         {
-            cout << "\n***The maximum number of questions in a quiz is 20!***\n";
+            cout << "\n*** The maximum number of questions in a quiz is 20 ***\n";
             goto numberOfQuestionsMenu;
         }
         
@@ -78,7 +82,7 @@ int main()
                 || stoi(userNumberOfQuestionsResponse_str) > 20 
                 || stoi(userNumberOfQuestionsResponse_str) < 1 )
             {
-                cout << "\n***You did not enter a valid option!***\n";
+                cout << "\n*** You did not enter a valid option ***\n";
                 goto numberOfQuestionsMenu;
             }
             else
@@ -91,7 +95,7 @@ int main()
                 || stoi(userNumberOfQuestionsResponse_str) > 20 
                 || stoi(userNumberOfQuestionsResponse_str) < 1 )
             {
-                cout << "\n***You did not enter a valid option!***\n";
+                cout << "\n*** You did not enter a valid option ***\n";
                 goto numberOfQuestionsMenu;
             }
             else
@@ -103,6 +107,7 @@ int main()
         if(quizApp.getNumberOfQuestionsCounter() == 0)
         {
             cout << "\nYou have answered all the quiz questions correctly...Nice job\n\n";
+            lineWrapper(string("\nYou have answered all the quiz questions correctly...Nice job\n\n"), '=');
             goto modeMenu;
         }
 
@@ -162,7 +167,7 @@ int main()
                 else
                 {
                     cout << "\nIncorrect...the correct answer is: " <<  addition(quizApp.getX(), quizApp.getY()) << "\n\nGame Over\n\n";
-                    break;
+                    goto modeMenu;
                 }
             }
 //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -204,7 +209,7 @@ int main()
                 else
                 {
                     cout << "\nIncorrect...the correct answer is: " <<  subtraction(quizApp.getX(), quizApp.getY()) << "\n\nGame Over\n\n";
-                    break;
+                    goto modeMenu;
                 }
             }
 //-------------------------------------------------------------------------------------------------------------------------------------------------

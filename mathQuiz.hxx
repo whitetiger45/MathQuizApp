@@ -6,13 +6,13 @@
 #include <string>
 
 #define func(n, a) void show##n(){std::cout << a << "\n";}
-func(Title, "\n* Math Quiz *")
+func(Title, "\n*************\n* Math Quiz *\n*************")
 #undef func
 //----------------------------------------------------------------------------------------------------------------
 #define func(n, a) void show##n(){std::cout << a << "\n";}
 func(Menu, "\nSelect A Quiz Type:\n===================\n1: Addition\n2: Subtraction\n3: Quit")
-func(DifficultyMenu, "*Difficulty Select*\n\nSet a difficulty level by entering 1, 2, 3 or 4 (Enter 'b' to return to mode select)")
-func(NumberOfQuestionsMenu, "\n(Enter 'm' to return to mode select and 'b' for difficulty select)\nHow many questions do you like to attempt (Max is 20):")
+func(DifficultyMenu, "(Enter 'b' to return to mode select)\n\nSet a difficulty level by entering 1, 2, 3 or 4")
+func(NumberOfQuestionsMenu, "(Enter 'm' to return to mode select and 'b' for difficulty select)\n\nHow many questions do you like to attempt (Max is 20):")
 #undef func
 //----------------------------------------------------------------------------------------------------------------
 
@@ -71,7 +71,7 @@ class Quizzer
 //----------------------------------------------------------------------------------------------------------------
             std::string getProblem(char op) const
             {
-                std::string problem = "*(Enter 'q' to quit)*\nSolve: \n\n" + getXStr() + " " + op + " " + getYStr() + " = ";
+                std::string problem = "(Enter 'q' to quit)\n\nSolve: \n\n" + getXStr() + " " + op + " " + getYStr() + " = ";
                 return problem;      
             }
 //----------------------------------------------------------------------------------------------------------------
