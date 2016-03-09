@@ -102,6 +102,39 @@ int main()
                 quizApp.setNumberOfQuestionsCounter(stoi(userNumberOfQuestionsResponse_str));
         }
 //---------------------------------------------------------------------------------------------------------------------------------------------
+        timedModeMenu:
+        string userTimedModeResponse_str;
+
+        lineWrapperI(85, '-');
+        cout << "Set Timer\n";
+        lineWrapper(string("Set Timer\n"), '-');
+        showTimedModeMenu(); 
+        cout << "\nUser: "; cin >> userTimedModeResponse_str;
+
+        if(userTimedModeResponse_str == "m" || userTimedModeResponse_str == "M")
+            goto modeMenu;
+        else if(userTimedModeResponse_str == "d" || userTimedModeResponse_str == "D")
+            goto difficultyMenu;
+        else if(userTimedModeResponse_str == "b" || userTimedModeResponse_str == "B")
+            goto numberOfQuestionsMenu;
+        else if(userTimedModeResponse_str.length() > 2)
+        {
+            cout << "\n*** You entered more than one character ***\n";
+            goto timedModeMenu;
+        }
+        else if(!isalpha(userTimedModeResponse_str[0]))
+        {
+            cout << "\n*** You did not enter a valid character ***\n";
+            goto timedModeMenu;
+        }
+        else if(userTimedModeResponse_str == "y" || userTimedModeResponse_str == "Y")
+        {
+            if(!quizApp.timedModeEnabled())
+            {
+                quizApp.enableTimedMode();
+            }
+        }
+//---------------------------------------------------------------------------------------------------------------------------------------------
         getQuestion:
 
         if(quizApp.getNumberOfQuestionsCounter() == 0)
@@ -139,8 +172,16 @@ int main()
                 string userResponse_str;
 
                 lineWrapper(quizApp.getProblem('+'), '-');
-                std:: cout << quizApp.getProblem('+') <<  "\n\nUser: ";
+                cout << "Question # " << quizApp.getQuestionNumber() << "\n";
+                lineWrapper(string("Question # " + std::to_string(quizApp.getQuestionNumber()) + string(" ")), '-');
+                std:: cout << quizApp.getProblem('+'); 
+                
+                quizApp.startTimer();    
+
+                cout << "\n\nUser: ";
                 cin >> userResponse_str;
+
+                quizApp.stopTimer();
 
                 for(auto c : userResponse_str)
                 {
@@ -162,6 +203,7 @@ int main()
                 {
                     cout << "\nCorrect!\n";
                     quizApp.decrementNumberOfQuestionsCounter();
+                    quizApp.incrementQuestionNumber();
                     goto getQuestion;
                 }
                 else
@@ -179,8 +221,14 @@ int main()
                 string userResponse_str;
 
                 lineWrapper(quizApp.getProblem('-'), '-');
-                std:: cout << quizApp.getProblem('-') << "\n\nUser: ";
+                std:: cout << quizApp.getProblem('-');
+                
+                quizApp.startTimer();    
+                            
+                cout << "\n\nUser: ";
                 cin >> userResponse_str;
+
+                quizApp.stopTimer();
                 
                 for(auto c : userResponse_str)
                 {
