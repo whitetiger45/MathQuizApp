@@ -80,6 +80,11 @@ class Quizzer
             return m_questionNumber;      
         }
 //----------------------------------------------------------------------------------------------------------------
+        void resetQuestionNumberCounter()
+        {   
+            m_questionNumber = 1;      
+        }
+//----------------------------------------------------------------------------------------------------------------
         std::string getProblem(char op)
         {
             std::string problem = "(Enter 'q' to quit)\n\nSolve: \n\n" + getXStr() + " " + op + " " + getYStr() + " = ";
@@ -94,6 +99,33 @@ class Quizzer
         bool timedModeEnabled()
         {
             return m_timedModeEnabled;      
+        }
+//-----------------------------------------------------------------------------------------------------------------------
+
+        void setDisplayedRulesOnce()
+        {
+            m_displayedRulesOnce = (m_displayedRulesOnce) ? false : true;
+        }
+//-----------------------------------------------------------------------------------------------------------------------
+
+        bool alreadyDisplayedRulesOnce()
+        {
+            return m_displayedRulesOnce;
+        }
+//-----------------------------------------------------------------------------------------------------------------------
+        bool displayTimedModeRule()
+        { 
+            if(alreadyDisplayedRulesOnce())
+                return alreadyDisplayedRulesOnce();
+
+            std::cout << std::endl;
+            lineWrapper(std::string("\nAttention: In this mode, you must solve the problem within 5 seconds or the quiz will end\n"), '*');
+            std::cout << "\nAttention:\n\n In this mode, you must solve the problem within 5 seconds or the quiz will end\n.";
+            std::cout << "\nThe timer will start once you see 'User:', and it will stop once you have entered your answer.\n\n";
+            lineWrapper(std::string("\nAttention: In this mode, you must solve the problem within 5 seconds or the quiz will end\n"), '*');
+            setDisplayedRulesOnce();
+
+            return alreadyDisplayedRulesOnce();
         }
 //----------------------------------------------------------------------------------------------------------------
         void startTimer()
@@ -162,8 +194,6 @@ class Quizzer
 //-----------------------------------------------------------------------------------------------------------------------
         double getAverageTimeToGuessTracker() const
         {
-            // std::cout << "\nMguess count: " << m_guessCount << ", AverageTimeDifferenceToGuessTracker: " << getAverageTimeDifferenceToGuessTracker() << "\n";
-         //    std::cout << "Average Time To Guess: " << (d) getAverageTimeDifferenceToGuessTracker() / (d) (m_guessCount) << "\n";
             if(m_questionNumber == 0 || getAverageTimeDifferenceToGuessTracker() == 0)
                 return getAverageTimeDifferenceToGuessTracker();
             else
@@ -199,6 +229,7 @@ class Quizzer
         struct tm * m_userGuessClock;
         unsigned int m_clockSecondsBeforeGuess = 0;
         unsigned int m_clockMinuteBeforeGuess = 0;
+        bool m_displayedRulesOnce = false;
 
 };
 #endif // MATHQUIZ_HXX

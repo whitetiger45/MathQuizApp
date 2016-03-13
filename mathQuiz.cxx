@@ -141,6 +141,7 @@ int main()
         {
             cout << "\nYou have answered all the quiz questions correctly...Nice job\n\n";
             lineWrapper(string("\nYou have answered all the quiz questions correctly...Nice job\n\n"), '=');
+            quizApp.resetQuestionNumberCounter();
             goto modeMenu;
         }
 
