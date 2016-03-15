@@ -132,6 +132,22 @@ int main()
             if(!quizApp.timedModeEnabled())
             {
                 quizApp.enableTimedMode();
+                if(!quizApp.alreadyDisplayedRulesOnce())
+                {
+                    quizApp.displayTimedModeRule();
+
+                    askIfUserIsReadyToBeginQuiz:
+                    cout << "\nEnter 's' to start quiz: ";
+                    string userQuizStartSubMenu_str; cin >> userQuizStartSubMenu_str;
+
+                    if(userQuizStartSubMenu_str == "s" || userQuizStartSubMenu_str == "S")
+                        goto getQuestion;
+                    else
+                    {
+                        cout << "\n*** You did not enter a valid option ***\n";
+                        goto askIfUserIsReadyToBeginQuiz;
+                    }
+                }
             }
         }
 //---------------------------------------------------------------------------------------------------------------------------------------------
