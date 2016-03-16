@@ -112,19 +112,30 @@ int main()
         cout << "\nUser: "; cin >> userTimedModeResponse_str;
 
         if(userTimedModeResponse_str == "m" || userTimedModeResponse_str == "M")
+        {
+            lineWrapperI(85, '-');
             goto modeMenu;
+        }
         else if(userTimedModeResponse_str == "d" || userTimedModeResponse_str == "D")
+        {
+            lineWrapperI(85, '-');
             goto difficultyMenu;
+        }
         else if(userTimedModeResponse_str == "b" || userTimedModeResponse_str == "B")
+        {
+            lineWrapperI(85, '-');
             goto numberOfQuestionsMenu;
+        }
         else if(userTimedModeResponse_str.length() > 2)
         {
             cout << "\n*** You entered more than one character ***\n";
+            lineWrapperI(85, '-');
             goto timedModeMenu;
         }
         else if(!isalpha(userTimedModeResponse_str[0]))
         {
             cout << "\n*** You did not enter a valid character ***\n";
+            lineWrapperI(85, '-');
             goto timedModeMenu;
         }
         else if(userTimedModeResponse_str == "y" || userTimedModeResponse_str == "Y")
@@ -137,17 +148,30 @@ int main()
                     quizApp.displayTimedModeRule();
 
                     askIfUserIsReadyToBeginQuiz:
-                    cout << "\nEnter 's' to start quiz: ";
+                    cout << "\nEnter 's' to start quiz and 'b' to set the number of questions again:\n\nUser: ";
                     string userQuizStartSubMenu_str; cin >> userQuizStartSubMenu_str;
+                    cout << std::endl;
 
                     if(userQuizStartSubMenu_str == "s" || userQuizStartSubMenu_str == "S")
                         goto getQuestion;
+                    else if(userQuizStartSubMenu_str == "b" || userQuizStartSubMenu_str == "B")
+                    {
+                        lineWrapperI(85, '-');
+                        goto numberOfQuestionsMenu;
+                    }
                     else
                     {
                         cout << "\n*** You did not enter a valid option ***\n";
                         goto askIfUserIsReadyToBeginQuiz;
                     }
                 }
+            }
+        }
+        else if(userTimedModeResponse_str == "n" || userTimedModeResponse_str == "N")
+        {
+            if(quizApp.timedModeEnabled())
+            {
+                quizApp.enableTimedMode();
             }
         }
 //---------------------------------------------------------------------------------------------------------------------------------------------

@@ -120,7 +120,7 @@ class Quizzer
 
             std::cout << std::endl;
             lineWrapper(std::string("\nAttention: In this mode, you must solve the problem within 5 seconds or the quiz will end\n"), '*');
-            std::cout << "\nAttention:\n\n In this mode, you must solve the problem within 5 seconds or the quiz will end\n.";
+            std::cout << "\nAttention:\n\nIn this mode, you must solve the problem within 5 seconds or the quiz will end.\n";
             std::cout << "\nThe timer will start once you see 'User:', and it will stop once you have entered your answer.\n\n";
             lineWrapper(std::string("\nAttention: In this mode, you must solve the problem within 5 seconds or the quiz will end\n"), '*');
             setDisplayedRulesOnce();
