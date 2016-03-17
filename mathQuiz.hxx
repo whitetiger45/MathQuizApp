@@ -11,9 +11,10 @@ func(Title, "\n*************\n* Math Quiz *\n*************")
 //----------------------------------------------------------------------------------------------------------------
 #define func(n, a) void show##n(){std::cout << a << "\n";}
 func(Menu, "\nSelect A Quiz Type:\n===================\n1: Addition\n2: Subtraction\n3: Quit")
-func(DifficultyMenu, "(Enter 'b' to return to mode select)\n\nSet a difficulty level by entering 1, 2, 3 or 4")
+func(DifficultyMenu, "(Enter 'b' to return to actual quiz mode menu and 'm' to return to mode menu select)\n\nSet a difficulty level by entering 1, 2, 3 or 4")
 func(NumberOfQuestionsMenu, "(Enter 'm' to return to mode select and 'b' for difficulty select)\n\nHow many questions do you like to attempt (Max is 20):")
 func(TimedModeMenu, "(Enter 'm' to return to mode select, 'd' for difficulty select and 'b' to set the number of questions again)\n\nWould you like to enable timed mode (y/n): ")
+func(ActualQuizModeMenu, "(Enter 'b' to return to the mode menu)\n\nWould you like to enable actual quiz mode (y/n): ")
 #undef func
 //----------------------------------------------------------------------------------------------------------------
 
@@ -35,9 +36,10 @@ class Quizzer
             m_yStr = std::to_string(y);
         }
 //----------------------------------------------------------------------------------------------------------------
-        void setNumberOfQuestionsCounter(signed int val)
+        void setNumberOfQuestionsCounter(unsigned int val)
         {
             m_numberOfQuizQuestionsCounter = val;
+            m_numberOfQuizQuestionsTotal = val;
         }
 //----------------------------------------------------------------------------------------------------------------
         void decrementNumberOfQuestionsCounter()
@@ -45,9 +47,14 @@ class Quizzer
             m_numberOfQuizQuestionsCounter--;
         }
 //----------------------------------------------------------------------------------------------------------------
-        signed int getNumberOfQuestionsCounter() const
+        unsigned int getNumberOfQuestionsCounter() const
         {
             return m_numberOfQuizQuestionsCounter;
+        }
+//----------------------------------------------------------------------------------------------------------------
+        unsigned int getNumberOfQuestionsTotal() const
+        {
+            return m_numberOfQuizQuestionsTotal;
         }
 //----------------------------------------------------------------------------------------------------------------
         unsigned int getX() const
@@ -210,18 +217,44 @@ class Quizzer
                 return true;
         }
 //-----------------------------------------------------------------------------------------------------------------------
+        void incrementCorrectAnswerCounter()
+        {
+            m_numberOfCorrectAnswers++;
+        }
+//-----------------------------------------------------------------------------------------------------------------------
+        void resetCorrectAnswerCounter()
+        {
+            m_numberOfCorrectAnswers = 0;
+        }
+//-----------------------------------------------------------------------------------------------------------------------
+        unsigned int getNumberOfCorrectAnswers() const
+        {
+            return m_numberOfCorrectAnswers;
+        }
+//-----------------------------------------------------------------------------------------------------------------------
+        void enableActualQuizMode()
+        {
+            m_actualQuizModeEnabled = (m_actualQuizModeEnabled) ? false : true;
+        }
+//-----------------------------------------------------------------------------------------------------------------------
+        bool actualQuizModeEnabled()
+        {
+            return m_actualQuizModeEnabled;
+        }
+//-----------------------------------------------------------------------------------------------------------------------
     private:
 
         signed int m_x;
         signed int m_y;
         std::string m_xStr;
         std::string m_yStr;
-        signed int m_numberOfZerosToAddX = 0;
-        signed int m_numberOfZerosToAddY = 0;
-        signed int m_numberOfQuizQuestionsCounter = 0;
+        unsigned int m_numberOfZerosToAddX = 0;
+        unsigned int m_numberOfZerosToAddY = 0;
+        unsigned int m_numberOfQuizQuestionsCounter = 0;
+        unsigned int m_numberOfQuizQuestionsTotal = 0;
         bool m_timedModeEnabled = false;
 
-        signed int m_questionNumber = 1;
+        unsigned int m_questionNumber = 1;
         //timer stuff
         unsigned int m_clockSecondsAfterGuess = 0;
         unsigned int m_clockMinuteAfterGuess = 0;
@@ -230,6 +263,9 @@ class Quizzer
         unsigned int m_clockSecondsBeforeGuess = 0;
         unsigned int m_clockMinuteBeforeGuess = 0;
         bool m_displayedRulesOnce = false;
+
+        unsigned int m_numberOfCorrectAnswers = 0;
+        bool m_actualQuizModeEnabled = false;
 
 };
 #endif // MATHQUIZ_HXX

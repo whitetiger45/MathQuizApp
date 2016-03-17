@@ -10,11 +10,11 @@ int main()
     modeMenu:
 
     string userModeChoice_str;
-    signed int userModeChoice_si;
+    unsigned int userModeChoice_si = 0;
 
     showMenu();
     cout << "\nUser: "; cin >> userModeChoice_str;
-
+    lineWrapperI(85, '-');
     if( userModeChoice_str.length() > 1 || !isdigit(userModeChoice_str[0])
         || stoi(userModeChoice_str) > 3 || stoi(userModeChoice_str) < 1 )
     {
@@ -23,7 +23,46 @@ int main()
     }
     else
         userModeChoice_si = stoi(userModeChoice_str);
+//---------------------------------------------------------------------------------------------------------------------------------------------
 
+    actualQuizModeMenu:
+    string userActualQuizModeMenu_str;
+
+    if(userModeChoice_si == 3)
+        goto quit;
+
+    showActualQuizModeMenu();
+    cout << "\nUser: " ;cin >> userActualQuizModeMenu_str;
+
+    if(userActualQuizModeMenu_str.length() > 1)
+    {
+        cout << "\n*** Please enter 'y' or 'n' ***\n";
+        goto actualQuizModeMenu;
+    }
+    else if(!(isalpha(userActualQuizModeMenu_str[0])))
+    {
+        cout << "\n*** You entered an invalid character! ***\n";
+        goto actualQuizModeMenu;
+    }
+    else if(userActualQuizModeMenu_str == "y" || userActualQuizModeMenu_str == "Y")
+    {
+        if(!quizApp.actualQuizModeEnabled())
+            quizApp.enableActualQuizMode();
+    }
+    else if(userActualQuizModeMenu_str == "n" || userActualQuizModeMenu_str == "N")
+    {
+        if(quizApp.actualQuizModeEnabled())
+            quizApp.enableActualQuizMode();
+    }
+    else if(userActualQuizModeMenu_str == "b" || userActualQuizModeMenu_str == "B")
+    {
+        goto modeMenu;
+    }
+    else
+    {
+        cout << "*** You entered an invalid character! ***\n";
+        goto actualQuizModeMenu;
+    }
 //---------------------------------------------------------------------------------------------------------------------------------------------
     do
     {
@@ -47,6 +86,10 @@ int main()
         {
             if(userDifficultyChoice_str == "b" || userDifficultyChoice_str == "B" )
             {
+                goto actualQuizModeMenu;
+            }
+            else if(userDifficultyChoice_str == "m" || userDifficultyChoice_str == "M" )
+            {
                 goto modeMenu;
             }
             else
@@ -61,8 +104,8 @@ int main()
         numberOfQuestionsMenu:
         string userNumberOfQuestionsResponse_str;
 
-        cout << "Set Quiz Length\n";
-        lineWrapper(string("Set Quiz Length\n"), '-');
+        cout << "Set Number Of Problems To Attempt\n";
+        lineWrapper(string("Set Number Of Problems To Attempt\n"), '-');
         showNumberOfQuestionsMenu(); 
         cout << "\nUser: "; cin >> userNumberOfQuestionsResponse_str;
 
@@ -72,7 +115,7 @@ int main()
             goto difficultyMenu;
         else if(userNumberOfQuestionsResponse_str.length() > 2)
         {
-            cout << "\n*** The maximum number of questions in a quiz is 20 ***\n";
+            cout << "\n*** The maximum number of problems you can attempt to solve is 20 ***\n";
             goto numberOfQuestionsMenu;
         }
         
@@ -126,7 +169,7 @@ int main()
             lineWrapperI(85, '-');
             goto numberOfQuestionsMenu;
         }
-        else if(userTimedModeResponse_str.length() > 2)
+        else if(userTimedModeResponse_str.length() > 1)
         {
             cout << "\n*** You entered more than one character ***\n";
             lineWrapperI(85, '-');
@@ -177,13 +220,24 @@ int main()
 //---------------------------------------------------------------------------------------------------------------------------------------------
         getQuestion:
 
-        if(quizApp.getNumberOfQuestionsCounter() == 0)
+        if(quizApp.getNumberOfQuestionsCounter() == 0 && !quizApp.actualQuizModeEnabled())
         {
             cout << "\nYou have answered all the quiz questions correctly...Nice job\n\n";
             lineWrapper(string("\nYou have answered all the quiz questions correctly...Nice job\n\n"), '=');
             quizApp.resetQuestionNumberCounter();
+            quizApp.resetCorrectAnswerCounter();
             goto modeMenu;
         }
+        else if(quizApp.getNumberOfQuestionsCounter() == 0 && quizApp.actualQuizModeEnabled())
+        {
+            lineWrapper(string("\nYou have completed the quiz.\n"), '=');
+            cout << "\nYou have completed the quiz.\nYour score: " + to_string(quizApp.getNumberOfCorrectAnswers()) + "/" + to_string(quizApp.getNumberOfQuestionsTotal()) + "\n\n";
+            lineWrapper(string("\nYou have completed the quiz.\n"), '=');
+            quizApp.resetQuestionNumberCounter();
+            quizApp.resetCorrectAnswerCounter();
+            goto modeMenu;
+        }
+
 
         srand(time(NULL));
             
@@ -254,12 +308,23 @@ int main()
                     cout << "\nCorrect!\n";
                     quizApp.decrementNumberOfQuestionsCounter();
                     quizApp.incrementQuestionNumber();
+                    quizApp.incrementCorrectAnswerCounter();
                     goto getQuestion;
                 }
                 else
                 {
-                    cout << "\nIncorrect...the correct answer is: " <<  addition(quizApp.getX(), quizApp.getY()) << "\n\nGame Over\n\n";
-                    goto modeMenu;
+                    if(!quizApp.actualQuizModeEnabled())
+                    {
+                        cout << "\nIncorrect...the correct answer is: " <<  addition(quizApp.getX(), quizApp.getY()) << "\n\nGame Over\n\n";
+                        goto modeMenu;
+                    }
+                    else
+                    {
+                        cout << "\nIncorrect...the correct answer is: " <<  addition(quizApp.getX(), quizApp.getY()) << "\n";
+                        quizApp.decrementNumberOfQuestionsCounter();
+                        quizApp.incrementQuestionNumber();
+                        goto getQuestion;
+                    }
                 }
             }
 //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -302,6 +367,7 @@ int main()
                 {
                     cout << "\nCorrect!\n";
                     quizApp.decrementNumberOfQuestionsCounter();
+                    quizApp.incrementQuestionNumber();
                     goto getQuestion;
                 }
                 else
