@@ -8,7 +8,9 @@
 #define func(n, a) void show##n(){std::cout << a << "\n";}
 func(Title, "\n*************\n* Math Quiz *\n*************")
 #undef func
+
 //----------------------------------------------------------------------------------------------------------------
+
 #define func(n, a) void show##n(){std::cout << a << "\n";}
 func(Menu, "\nSelect A Quiz Type:\n===================\n1: Addition\n2: Subtraction\n3: Quit")
 func(DifficultyMenu, "(Enter 'b' to return to actual quiz mode menu and 'm' to return to mode menu select)\n\nSet a difficulty level by entering 1, 2, 3 or 4")
@@ -16,14 +18,19 @@ func(NumberOfQuestionsMenu, "(Enter 'm' to return to mode select and 'b' for dif
 func(TimedModeMenu, "(Enter 'm' to return to mode select, 'd' for difficulty select and 'b' to set the number of questions again)\n\nWould you like to enable timed mode (y/n): ")
 func(ActualQuizModeMenu, "(Enter 'b' to return to the mode menu)\n\nWould you like to enable actual quiz mode (y/n): ")
 #undef func
+
 //----------------------------------------------------------------------------------------------------------------
 
 auto addition = [](signed int x, signed int y) -> signed int {return x + y;};
 auto subtraction = [](signed int x, signed int y) -> signed int {return x - y;};
 
 //----------------------------------------------------------------------------------------------------------------
-auto lineWrapper = [](std::string lineToWrap, char c){for(signed int i = 0; i < lineToWrap.size(); i++)std::cout << c; std::cout << "\n";};
-auto lineWrapperI = [](unsigned int numOfChars, char c){for(signed int i = 0; i < numOfChars ; i++)std::cout << c; std::cout << "\n";};
+
+auto lineWrapper = [](std::string lineToWrap, char c){for(unsigned int i = 0; i < lineToWrap.size(); i++)std::cout << c; std::cout << "\n";};
+auto lineWrapperI = [](unsigned int numOfChars, char c){for(unsigned int i = 0; i < numOfChars ; i++)std::cout << c; std::cout << "\n";};
+
+//----------------------------------------------------------------------------------------------------------------
+
 class Quizzer
 {
     public:
@@ -166,7 +173,7 @@ class Quizzer
             return m_clockSecondsAfterGuess;
         }
 //-----------------------------------------------------------------------------------------------------------------------
-        signed int getMinuteAfterGuess() const
+        unsigned int getMinuteAfterGuess() const
         {
             return m_clockMinuteAfterGuess;
         }
@@ -248,13 +255,11 @@ class Quizzer
         signed int m_y;
         std::string m_xStr;
         std::string m_yStr;
-        unsigned int m_numberOfZerosToAddX = 0;
-        unsigned int m_numberOfZerosToAddY = 0;
         unsigned int m_numberOfQuizQuestionsCounter = 0;
         unsigned int m_numberOfQuizQuestionsTotal = 0;
         bool m_timedModeEnabled = false;
-
         unsigned int m_questionNumber = 1;
+        
         //timer stuff
         unsigned int m_clockSecondsAfterGuess = 0;
         unsigned int m_clockMinuteAfterGuess = 0;

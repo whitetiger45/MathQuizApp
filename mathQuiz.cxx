@@ -14,7 +14,7 @@ int main()
 
     showMenu();
     cout << "\nUser: "; cin >> userModeChoice_str;
-    lineWrapperI(85, '-');
+
     if( userModeChoice_str.length() > 1 || !isdigit(userModeChoice_str[0])
         || stoi(userModeChoice_str) > 3 || stoi(userModeChoice_str) < 1 )
     {
@@ -30,6 +30,8 @@ int main()
 
     if(userModeChoice_si == 3)
         goto quit;
+    else
+        lineWrapperI(85, '-');
 
     showActualQuizModeMenu();
     cout << "\nUser: " ;cin >> userActualQuizModeMenu_str;
