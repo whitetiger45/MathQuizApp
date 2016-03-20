@@ -370,12 +370,23 @@ int main()
                     cout << "\nCorrect!\n";
                     quizApp.decrementNumberOfQuestionsCounter();
                     quizApp.incrementQuestionNumber();
+                    quizApp.incrementCorrectAnswerCounter();
                     goto getQuestion;
                 }
                 else
                 {
-                    cout << "\nIncorrect...the correct answer is: " <<  subtraction(quizApp.getX(), quizApp.getY()) << "\n\nGame Over\n\n";
-                    goto modeMenu;
+                    if(!quizApp.actualQuizModeEnabled())
+                    {
+                        cout << "\nIncorrect...the correct answer is: " <<  subtraction(quizApp.getX(), quizApp.getY()) << "\n\nGame Over\n\n";
+                        goto modeMenu;
+                    }
+                    else
+                    {
+                        cout << "\nIncorrect...the correct answer is: " <<  subtraction(quizApp.getX(), quizApp.getY()) << "\n";
+                        quizApp.decrementNumberOfQuestionsCounter();
+                        quizApp.incrementQuestionNumber();
+                        goto getQuestion;
+                    }
                 }
             }
 //-------------------------------------------------------------------------------------------------------------------------------------------------
