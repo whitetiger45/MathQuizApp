@@ -338,6 +338,8 @@ int main()
                 string userResponse_str;
 
                 lineWrapper(quizApp.getProblem('-'), '-');
+                cout << "Question # " << quizApp.getQuestionNumber() << "\n";
+                lineWrapper(string("Question # " + std::to_string(quizApp.getQuestionNumber()) + string(" ")), '-');
                 std:: cout << quizApp.getProblem('-');
                 
                 quizApp.startTimer();    
