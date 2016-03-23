@@ -383,6 +383,7 @@ int main()
                     if(!quizApp.actualQuizModeEnabled())
                     {
                         cout << "\nIncorrect...the correct answer is: " <<  subtraction(quizApp.getX(), quizApp.getY()) << "\n\nGame Over\n\n";
+                        userGuessedWrong = true;
                         goto modeMenu;
                     }
                     else
