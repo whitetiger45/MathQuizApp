@@ -249,6 +249,22 @@ class Quizzer
             return m_actualQuizModeEnabled;
         }
 //-----------------------------------------------------------------------------------------------------------------------
+        void decrementIncorrectGuessCounter()
+        {
+            m_incorrectGuessCounter--;
+        }
+//-----------------------------------------------------------------------------------------------------------------------
+        unsigned int getIncorrectGuessCounter() const
+        {
+           return m_incorrectGuessCounter;
+        }
+//-----------------------------------------------------------------------------------------------------------------------
+        void resetIncorrectGuessCounter() 
+        {
+           m_incorrectGuessCounter = 1;
+        }
+//-----------------------------------------------------------------------------------------------------------------------
+
     private:
 
         signed int m_x;
@@ -259,7 +275,7 @@ class Quizzer
         unsigned int m_numberOfQuizQuestionsTotal = 0;
         bool m_timedModeEnabled = false;
         unsigned int m_questionNumber = 1;
-        
+
         //timer stuff
         unsigned int m_clockSecondsAfterGuess = 0;
         unsigned int m_clockMinuteAfterGuess = 0;
@@ -271,6 +287,8 @@ class Quizzer
 
         unsigned int m_numberOfCorrectAnswers = 0;
         bool m_actualQuizModeEnabled = false;
+
+        unsigned int m_incorrectGuessCounter = 1;
 
 };
 #endif // MATHQUIZ_HXX
