@@ -223,14 +223,14 @@ int main()
         getQuestion:
 
         if((quizApp.getNumberOfQuestionsCounter() == 0 && !quizApp.actualQuizModeEnabled()) 
-            || ( quizApp.getIncorrectGuessCounter() == 0 && !quizApp.actualQuizModeEnabled()))
+            || ( quizApp.getIncorrectGuessesAllowedCounter() == 0 && !quizApp.actualQuizModeEnabled()))
         {
             lineWrapper(string("\nYou have completed the quiz.\n"), '=');
             cout << "\nYou have completed the quiz.\nYour score: " + to_string(quizApp.getNumberOfCorrectAnswers()) + "/" + to_string(quizApp.getNumberOfQuestionsTotal()) + "\n\n";
             lineWrapper(string("\nYou have completed the quiz.\n"), '=');
             quizApp.resetQuestionNumberCounter();
             quizApp.resetCorrectAnswerCounter();
-            quizApp.resetIncorrectGuessCounter();
+            quizApp.resetIncorrectGuessesAllowedCounter();
             goto modeMenu;
         }
         else if(quizApp.getNumberOfQuestionsCounter() == 0 && quizApp.actualQuizModeEnabled())
@@ -288,6 +288,9 @@ int main()
                     if(!quizApp.userRespondedInTime())
                     {
                         cout << "\nYou did not answer the question in time...Please try to improve your speed!\n";
+                        quizApp.resetQuestionNumberCounter();
+                        quizApp.resetCorrectAnswerCounter();
+                        quizApp.resetIncorrectGuessesAllowedCounter();
                         goto modeMenu;
                     }
                 }
@@ -321,7 +324,7 @@ int main()
                     if(!quizApp.actualQuizModeEnabled())
                     {
                         cout << "\nIncorrect...the correct answer is: " <<  addition(quizApp.getX(), quizApp.getY()) << "\n\n";
-                        quizApp.decrementIncorrectGuessCounter();
+                        quizApp.decrementIncorrectGuessesAllowedCounter();
                         goto getQuestion;
                     }
                     else
@@ -384,8 +387,7 @@ int main()
                     if(!quizApp.actualQuizModeEnabled())
                     {
                         cout << "\nIncorrect...the correct answer is: " <<  subtraction(quizApp.getX(), quizApp.getY()) << "\n\n";
-                        // userGuessedWrong = true;
-                        quizApp.decrementIncorrectGuessCounter();
+                        quizApp.decrementIncorrectGuessesAllowedCounter();
                         goto getQuestion;
                     }
                     else

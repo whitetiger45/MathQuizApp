@@ -249,19 +249,19 @@ class Quizzer
             return m_actualQuizModeEnabled;
         }
 //-----------------------------------------------------------------------------------------------------------------------
-        void decrementIncorrectGuessCounter()
+        void decrementIncorrectGuessesAllowedCounter()
         {
-            m_incorrectGuessCounter--;
+            m_incorrectGuessesAllowedCounter--;
         }
 //-----------------------------------------------------------------------------------------------------------------------
-        unsigned int getIncorrectGuessCounter() const
+        unsigned int getIncorrectGuessesAllowedCounter() const
         {
-           return m_incorrectGuessCounter;
+           return m_incorrectGuessesAllowedCounter;
         }
 //-----------------------------------------------------------------------------------------------------------------------
-        void resetIncorrectGuessCounter() 
+        void resetIncorrectGuessesAllowedCounter() 
         {
-           m_incorrectGuessCounter = 1;
+           m_incorrectGuessesAllowedCounter = 1;
         }
 //-----------------------------------------------------------------------------------------------------------------------
 
@@ -288,7 +288,7 @@ class Quizzer
         unsigned int m_numberOfCorrectAnswers = 0;
         bool m_actualQuizModeEnabled = false;
 
-        unsigned int m_incorrectGuessCounter = 1;
+        unsigned int m_incorrectGuessesAllowedCounter = 1;
 
 };
 #endif // MATHQUIZ_HXX
