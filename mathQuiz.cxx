@@ -356,6 +356,18 @@ int main()
 
                 quizApp.stopTimer();
                 
+                if(quizApp.timedModeEnabled())
+                {
+                    if(!quizApp.userRespondedInTime())
+                    {
+                        cout << "\nYou did not answer the question in time...Please try to improve your speed!\n";
+                        quizApp.resetQuestionNumberCounter();
+                        quizApp.resetCorrectAnswerCounter();
+                        quizApp.resetIncorrectGuessesAllowedCounter();
+                        goto modeMenu;
+                    }
+                }
+                
                 for(auto c : userResponse_str)
                 {
                     if(!(isdigit(c)))
