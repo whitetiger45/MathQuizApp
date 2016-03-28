@@ -225,9 +225,19 @@ int main()
         if((quizApp.getNumberOfQuestionsCounter() == 0 && !quizApp.actualQuizModeEnabled()) 
             || ( quizApp.getIncorrectGuessesAllowedCounter() == 0 && !quizApp.actualQuizModeEnabled()))
         {
-            lineWrapper(string("\nYou have completed the quiz.\n"), '=');
-            cout << "\nYou have completed the quiz.\nYour score: " + to_string(quizApp.getNumberOfCorrectAnswers()) + "/" + to_string(quizApp.getNumberOfQuestionsTotal()) + "\n\n";
-            lineWrapper(string("\nYou have completed the quiz.\n"), '=');
+            if(quizApp.getNumberOfQuestionsCounter() == 0)
+            {
+                lineWrapper(string("\nYou have completed the quiz.\n"), '=');
+                cout << "\nYou have completed the quiz.\nYour score: " + to_string(quizApp.getNumberOfCorrectAnswers()) + "/" + to_string(quizApp.getNumberOfQuestionsTotal()) + "\n\n";
+                lineWrapper(string("\nYou have completed the quiz.\n"), '=');
+            }
+            else
+            {
+                lineWrapper(string("\nYou have missed too many questions and the quiz is now over.\n"), '=');
+                cout << "\nYou have missed too many questions and the quiz is now over.\nYour score: " + to_string(quizApp.getNumberOfCorrectAnswers()) + "/" + to_string(quizApp.getNumberOfQuestionsTotal()) + "\n\n";
+                lineWrapper(string("\nYou have missed too many questions and the quiz is now over.\n"), '=');
+            }
+
             quizApp.resetQuestionNumberCounter();
             quizApp.resetCorrectAnswerCounter();
             quizApp.resetIncorrectGuessesAllowedCounter();
