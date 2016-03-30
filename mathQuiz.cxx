@@ -297,7 +297,10 @@ int main()
                 {
                     if(!quizApp.userRespondedInTime())
                     {
-                        cout << "\nYou did not answer the question in time...Please try to improve your speed!\n";
+                        cout << endl;
+                        lineWrapperI(101, 'x');
+                        cout << "\nThe answer was " << addition(quizApp.getX(), quizApp.getY()) << ", but you did not answer the question in time...please try to improve your speed!\n\n";
+                        lineWrapperI(101, 'x');
                         quizApp.resetQuestionNumberCounter();
                         quizApp.resetCorrectAnswerCounter();
                         quizApp.resetIncorrectGuessesAllowedCounter();
