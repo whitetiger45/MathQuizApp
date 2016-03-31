@@ -238,9 +238,7 @@ int main()
                 lineWrapper(string("\nYou have missed too many questions and the quiz is now over.\n"), '=');
             }
 
-            quizApp.resetQuestionNumberCounter();
-            quizApp.resetCorrectAnswerCounter();
-            quizApp.resetIncorrectGuessesAllowedCounter();
+            quizApp.resetAllCounters();
             goto modeMenu;
         }
         else if(quizApp.getNumberOfQuestionsCounter() == 0 && quizApp.actualQuizModeEnabled())
@@ -293,21 +291,6 @@ int main()
 
                 quizApp.stopTimer();
 
-                if(quizApp.timedModeEnabled())
-                {
-                    if(!quizApp.userRespondedInTime())
-                    {
-                        cout << endl;
-                        lineWrapperI(101, 'x');
-                        cout << "\nThe answer was " << addition(quizApp.getX(), quizApp.getY()) << ", but you did not answer the question in time...please try to improve your speed!\n\n";
-                        lineWrapperI(101, 'x');
-                        quizApp.resetQuestionNumberCounter();
-                        quizApp.resetCorrectAnswerCounter();
-                        quizApp.resetIncorrectGuessesAllowedCounter();
-                        goto modeMenu;
-                    }
-                }
-
                 for(auto c : userResponse_str)
                 {
                     if(!(isdigit(c)))
@@ -318,6 +301,32 @@ int main()
                         {
                             cout << "\nInvalid entry!\n";
                             goto caseOneStart;
+                        }
+                    }
+                }
+                
+                if(quizApp.timedModeEnabled())
+                {
+                    if(!quizApp.userRespondedInTime())
+                    {
+                        cout << endl;
+                        
+                        if(!quizApp.actualQuizModeEnabled())
+                        {
+                            lineWrapperI(101, 'x');
+                            cout << "\nThe answer was " << addition(quizApp.getX(), quizApp.getY()) << ", but you did not answer the question in time...please try to improve your speed!\n\n";
+                            lineWrapperI(101, 'x');
+                            quizApp.resetAllCounters();
+                            goto modeMenu;
+                        }
+                        else
+                        {
+                            lineWrapperI(65, 'x');
+                            cout << "\nThe correct answer is: " <<  addition(quizApp.getX(), quizApp.getY()) << ", but you did not answer fast enough.\n\n";
+                            lineWrapperI(65, 'x');
+                            quizApp.decrementNumberOfQuestionsCounter();
+                            quizApp.incrementQuestionNumber();
+                            goto getQuestion;
                         }
                     }
                 }
@@ -373,10 +382,11 @@ int main()
                 {
                     if(!quizApp.userRespondedInTime())
                     {
-                        cout << "\nYou did not answer the question in time...Please try to improve your speed!\n";
-                        quizApp.resetQuestionNumberCounter();
-                        quizApp.resetCorrectAnswerCounter();
-                        quizApp.resetIncorrectGuessesAllowedCounter();
+                        cout << endl;
+                        lineWrapperI(101, 'x');
+                        cout << "\nThe answer was " << subtraction(quizApp.getX(), quizApp.getY()) << ", but you did not answer the question in time...please try to improve your speed!\n\n";
+                        lineWrapperI(101, 'x');                        
+                        quizApp.resetAllCounters();
                         goto modeMenu;
                     }
                 }

@@ -264,6 +264,13 @@ class Quizzer
            m_incorrectGuessesAllowedCounter = 1;
         }
 //-----------------------------------------------------------------------------------------------------------------------
+        void resetAllCounters()
+        {
+            resetQuestionNumberCounter();
+            resetCorrectAnswerCounter();
+            resetIncorrectGuessesAllowedCounter();
+        }
+//-----------------------------------------------------------------------------------------------------------------------
 
     private:
 
