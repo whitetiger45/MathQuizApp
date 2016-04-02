@@ -238,7 +238,7 @@ int main()
                 lineWrapper(string("\nYou have missed too many questions and the quiz is now over.\n"), '=');
             }
 
-            quizApp.resetAllCounters();
+            quizApp.resetAllCountersNonActualQuizMode();
             goto modeMenu;
         }
         else if(quizApp.getNumberOfQuestionsCounter() == 0 && quizApp.actualQuizModeEnabled())
@@ -246,8 +246,7 @@ int main()
             lineWrapper(string("\nYou have completed the quiz.\n"), '=');
             cout << "\nYou have completed the quiz.\nYour score: " + to_string(quizApp.getNumberOfCorrectAnswers()) + "/" + to_string(quizApp.getNumberOfQuestionsTotal()) + "\n\n";
             lineWrapper(string("\nYou have completed the quiz.\n"), '=');
-            quizApp.resetQuestionNumberCounter();
-            quizApp.resetCorrectAnswerCounter();
+            quizApp.resetAllCountersActualQuizMode();
             goto modeMenu;
         }
 
@@ -316,18 +315,17 @@ int main()
                             lineWrapperI(101, 'x');
                             cout << "\nThe answer was " << addition(quizApp.getX(), quizApp.getY()) << ", but you did not answer the question in time...please try to improve your speed!\n\n";
                             lineWrapperI(101, 'x');
-                            quizApp.resetAllCounters();
-                            goto modeMenu;
+                            quizApp.decrementIncorrectGuessesAllowedCounter();
                         }
                         else
                         {
                             lineWrapperI(65, 'x');
-                            cout << "\nThe correct answer is: " <<  addition(quizApp.getX(), quizApp.getY()) << ", but you did not answer fast enough.\n\n";
+                            cout << "\nThe correct answer was " <<  addition(quizApp.getX(), quizApp.getY()) << ", but you did not answer fast enough.\n\n";
                             lineWrapperI(65, 'x');
                             quizApp.decrementNumberOfQuestionsCounter();
                             quizApp.incrementQuestionNumber();
-                            goto getQuestion;
                         }
+                        goto getQuestion;
                     }
                 }
                 
@@ -336,27 +334,27 @@ int main()
                 if(userResponse_si == addition(quizApp.getX(), quizApp.getY()))
                 {
                     cout << "\nCorrect!\n";
-                    quizApp.decrementNumberOfQuestionsCounter();
-                    quizApp.incrementQuestionNumber();
-                    quizApp.incrementCorrectAnswerCounter();
-                    goto getQuestion;
+                    quizApp.correctAnswerHandler();
                 }
                 else
                 {
                     if(!quizApp.actualQuizModeEnabled())
                     {
+                        lineWrapperI(65, 'x');
                         cout << "\nIncorrect...the correct answer is: " <<  addition(quizApp.getX(), quizApp.getY()) << "\n\n";
+                        lineWrapperI(65, 'x');
                         quizApp.decrementIncorrectGuessesAllowedCounter();
-                        goto getQuestion;
                     }
                     else
                     {
+                        lineWrapperI(65, 'x');
                         cout << "\nIncorrect...the correct answer is: " <<  addition(quizApp.getX(), quizApp.getY()) << "\n";
+                        lineWrapperI(65, 'x');
                         quizApp.decrementNumberOfQuestionsCounter();
                         quizApp.incrementQuestionNumber();
-                        goto getQuestion;
                     }
                 }
+                goto getQuestion;
             }
 //---------------------------------------------------------------------------------------------------------------------------------------------
             case 2:
@@ -405,18 +403,17 @@ int main()
                             lineWrapperI(101, 'x');
                             cout << "\nThe answer was " << subtraction(quizApp.getX(), quizApp.getY()) << ", but you did not answer the question in time...please try to improve your speed!\n\n";
                             lineWrapperI(101, 'x');
-                            quizApp.resetAllCounters();
-                            goto modeMenu;
+                            quizApp.decrementIncorrectGuessesAllowedCounter();
                         }
                         else
                         {
                             lineWrapperI(65, 'x');
-                            cout << "\nThe correct answer is: " <<  subtraction(quizApp.getX(), quizApp.getY()) << ", but you did not answer fast enough.\n\n";
+                            cout << "\nThe answer was " <<  subtraction(quizApp.getX(), quizApp.getY()) << ", but you did not answer fast enough.\n\n";
                             lineWrapperI(65, 'x');
                             quizApp.decrementNumberOfQuestionsCounter();
                             quizApp.incrementQuestionNumber();
-                            goto getQuestion;
                         }
+                        goto getQuestion;
                     }
                 }
 
@@ -425,10 +422,7 @@ int main()
                 if(userResponse_si == subtraction(quizApp.getX(), quizApp.getY()))
                 {
                     cout << "\nCorrect!\n";
-                    quizApp.decrementNumberOfQuestionsCounter();
-                    quizApp.incrementQuestionNumber();
-                    quizApp.incrementCorrectAnswerCounter();
-                    goto getQuestion;
+                    quizApp.correctAnswerHandler();
                 }
                 else
                 {
@@ -436,16 +430,15 @@ int main()
                     {
                         cout << "\nIncorrect...the correct answer is: " <<  subtraction(quizApp.getX(), quizApp.getY()) << "\n\n";
                         quizApp.decrementIncorrectGuessesAllowedCounter();
-                        goto getQuestion;
                     }
                     else
                     {
                         cout << "\nIncorrect...the correct answer is: " <<  subtraction(quizApp.getX(), quizApp.getY()) << "\n";
                         quizApp.decrementNumberOfQuestionsCounter();
                         quizApp.incrementQuestionNumber();
-                        goto getQuestion;
                     }
                 }
+                goto getQuestion;
             }
 //-------------------------------------------------------------------------------------------------------------------------------------------------
             //this case may not needed

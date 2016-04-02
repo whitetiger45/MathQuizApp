@@ -264,11 +264,24 @@ class Quizzer
            m_incorrectGuessesAllowedCounter = 1;
         }
 //-----------------------------------------------------------------------------------------------------------------------
-        void resetAllCounters()
+        void resetAllCountersNonActualQuizMode()
         {
             resetQuestionNumberCounter();
             resetCorrectAnswerCounter();
             resetIncorrectGuessesAllowedCounter();
+        }
+//-----------------------------------------------------------------------------------------------------------------------
+        void resetAllCountersActualQuizMode()
+        {
+            resetQuestionNumberCounter();
+            resetCorrectAnswerCounter();
+        }
+//-----------------------------------------------------------------------------------------------------------------------
+        void correctAnswerHandler()
+        {
+            decrementNumberOfQuestionsCounter();
+            incrementQuestionNumber();
+            incrementCorrectAnswerCounter();
         }
 //-----------------------------------------------------------------------------------------------------------------------
 
