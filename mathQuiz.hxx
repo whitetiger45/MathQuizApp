@@ -284,6 +284,12 @@ class Quizzer
             incrementCorrectAnswerCounter();
         }
 //-----------------------------------------------------------------------------------------------------------------------
+        void incorrectAnswerHandler()
+        {
+            decrementNumberOfQuestionsCounter();
+            incrementQuestionNumber();
+        }
+//-----------------------------------------------------------------------------------------------------------------------
 
     private:
 
