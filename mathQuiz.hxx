@@ -284,7 +284,7 @@ class Quizzer
             incrementCorrectAnswerCounter();
         }
 //-----------------------------------------------------------------------------------------------------------------------
-        void incorrectAnswerHandler()
+        void incorrectAnswerHandlerNonActualQuizMode()
         {
             decrementNumberOfQuestionsCounter();
             incrementQuestionNumber();
