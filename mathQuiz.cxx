@@ -322,8 +322,6 @@ int main()
                             lineWrapperI(65, 'x');
                             cout << "\nThe correct answer was " <<  addition(quizApp.getX(), quizApp.getY()) << ", but you did not answer fast enough.\n\n";
                             lineWrapperI(65, 'x');
-                            // quizApp.decrementNumberOfQuestionsCounter();
-                            // quizApp.incrementQuestionNumber();
                             quizApp.incorrectAnswerHandlerNonActualQuizMode();
                         }
                         goto getQuestion;
@@ -351,8 +349,6 @@ int main()
                         lineWrapperI(65, 'x');
                         cout << "\nIncorrect...the correct answer is: " <<  addition(quizApp.getX(), quizApp.getY()) << "\n";
                         lineWrapperI(65, 'x');
-                        // quizApp.decrementNumberOfQuestionsCounter();
-                        // quizApp.incrementQuestionNumber();
                         quizApp.incorrectAnswerHandlerNonActualQuizMode();
                     }
                 }
@@ -412,8 +408,6 @@ int main()
                             lineWrapperI(65, 'x');
                             cout << "\nThe answer was " <<  subtraction(quizApp.getX(), quizApp.getY()) << ", but you did not answer fast enough.\n\n";
                             lineWrapperI(65, 'x');
-                            // quizApp.decrementNumberOfQuestionsCounter();
-                            // quizApp.incrementQuestionNumber();
                             quizApp.incorrectAnswerHandlerNonActualQuizMode();
                         }
                         goto getQuestion;
@@ -437,8 +431,6 @@ int main()
                     else
                     {
                         cout << "\nIncorrect...the correct answer is: " <<  subtraction(quizApp.getX(), quizApp.getY()) << "\n";
-                        // quizApp.decrementNumberOfQuestionsCounter();
-                        // quizApp.incrementQuestionNumber();
                         quizApp.incorrectAnswerHandlerNonActualQuizMode();
                     }
                 }
