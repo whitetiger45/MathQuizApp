@@ -84,7 +84,7 @@ int main()
         lineWrapperI(85, '-');
 
         if( userDifficultyChoice_str.length() > 1 || !isdigit(userDifficultyChoice_str[0])
-            || stoi(userDifficultyChoice_str) > 4 || stoi(userDifficultyChoice_str) < 1 )
+            || stoi(userDifficultyChoice_str) > 5 || stoi(userDifficultyChoice_str) < 1 )
         {
             if(userDifficultyChoice_str == "b" || userDifficultyChoice_str == "B" )
             {
@@ -252,9 +252,14 @@ int main()
 
 
         srand(time(NULL));
-            
-        switch(userDifficultyChoice_si)
+        autoSetDifficulty:
+        unsigned int difficultyHandler_si = ( userDifficultyChoice_si == 5 ) ? rand() % 4 : userDifficultyChoice_si;
+
+        switch(difficultyHandler_si)
         {
+            case 0: 
+                goto autoSetDifficulty;
+                break;
             case 1:
                 quizApp.setXAndY(rand() % 9, rand() % 9);
                 break;
