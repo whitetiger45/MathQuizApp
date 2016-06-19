@@ -16,7 +16,7 @@ int main()
     cout << "\nUser: "; cin >> userModeChoice_str;
 
     if( userModeChoice_str.length() > 1 || !isdigit(userModeChoice_str[0])
-        || stoi(userModeChoice_str) > 3 || stoi(userModeChoice_str) < 1 )
+        || stoi(userModeChoice_str) > 4 || stoi(userModeChoice_str) < 1 )
     {
         cout << "\n*** You did not enter a valid option ***\n";
         goto modeMenu;
@@ -28,7 +28,7 @@ int main()
     actualQuizModeMenu:
     string userActualQuizModeMenu_str;
 
-    if(userModeChoice_si == 3)
+    if(userModeChoice_si == 4)
         goto quit;
     else
         lineWrapperI(85, '-');
@@ -73,7 +73,7 @@ int main()
         string userDifficultyChoice_str;
         signed int userDifficultyChoice_si;
 
-        if(userModeChoice_si == 3)
+        if(userModeChoice_si == 4)
             break;
 
         cout << endl; lineWrapperI(85, '-');
@@ -441,12 +441,22 @@ int main()
                 }
                 goto getQuestion;
             }
+            case 3:
+            {
+                unsigned int randomChoiceSelector = rand() % 3;
+                while( randomChoiceSelector == 0 )
+                    randomChoiceSelector =  rand() % 3;
+
+                if( randomChoiceSelector == 1 )
+                    goto caseOneStart;
+                else goto caseTwoStart;
+            }
 //-------------------------------------------------------------------------------------------------------------------------------------------------
             //this case may not needed
-            case 3:
+            case 4:
                 EXIT_SUCCESS;
         }
-    }while(userModeChoice_si != 3 && quizApp.getNumberOfQuestionsCounter() != 0);
+    }while(userModeChoice_si != 4 && quizApp.getNumberOfQuestionsCounter() != 0);
 
     quit:
     return 0;

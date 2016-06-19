@@ -3,7 +3,7 @@
 
 #include <ctime>
 #include <iostream>
-#include <stdlib.h>  
+#include <cstdlib>  
 #include <string>
 
 #define func(n, a) void show##n(){std::cout << a << "\n";}
@@ -13,7 +13,7 @@ func(Title, "\n*************\n* Math Quiz *\n*************")
 //----------------------------------------------------------------------------------------------------------------
 
 #define func(n, a) void show##n(){std::cout << a << "\n";}
-func(Menu, "\nSelect A Quiz Type:\n===================\n1: Addition\n2: Subtraction\n3: Quit")
+func(Menu, "\nSelect A Quiz Type:\n===================\n1: Addition\n2: Subtraction\n3: Combo\n4: Quit")
 func(DifficultyMenu, "(Enter 'b' to return to actual quiz mode menu and 'm' to return to mode menu select)\n\nSet a difficulty level by entering 1, 2, 3, 4 or 5 for randomized questioning)")
 func(NumberOfQuestionsMenu, "(Enter 'm' to return to mode select and 'b' for difficulty select)\n\nHow many questions do you like to attempt (Max is 20):")
 func(TimedModeMenu, "(Enter 'm' to return to mode select, 'd' for difficulty select and 'b' to set the number of questions again)\n\nWould you like to enable timed mode (y/n): ")
